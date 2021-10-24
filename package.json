@@ -4,13 +4,13 @@
   "description": "Educacion API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon .",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aalban3/educacion-api.git",
-    "start:dev": "nodemon .",
-    "start": "node index.js"
+    "url": "git+https://github.com/aalban3/educacion-api.git"
   },
   "author": "Alan Alban",
   "dependencies": {
