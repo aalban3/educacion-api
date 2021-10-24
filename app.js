@@ -19,7 +19,7 @@ app.use(
     graphiql: true,
   })
 );
-
+console.log("test");
 app.get("/", function (req, res, next) {
   res.send("Hello, Nothing to see here yet!");
 });
