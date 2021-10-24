@@ -8,7 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aalban3/educacion-api.git"
+    "url": "git+https://github.com/aalban3/educacion-api.git",
+    "start:dev": "nodemon .",
+    "start": "node index.js"
   },
   "author": "Alan Alban",
   "dependencies": {
