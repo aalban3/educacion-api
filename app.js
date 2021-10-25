@@ -4,7 +4,7 @@ const path = require("path");
 const { graphqlHTTP } = require("express-graphql");
 require("dotenv").config();
 const logger = require("morgan");
-const { types, resolvers } = require("./schema/schema");
+const { types, resolvers } = require("./graphql/schema");
 
 app.use(logger("dev"));
 app.use(express.json());

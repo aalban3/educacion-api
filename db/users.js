@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-  name: String,
-});
+const userSchema = new mongoose.Schema(
+  {
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    cognitoToken: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
+const User = mongoose.model("users", userSchema);
 
-const User = mongoose.model("User", userSchema);
-
-const silence = new User({ name: "Silence" });
-silence.save(() => {
-  console.log("Done");
-});
 module.exports = User;
