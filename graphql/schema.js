@@ -4,6 +4,7 @@ const {
 } = require("../db");
 const signUp = require("../cognito/signup");
 const verify = require("../cognito/verify");
+const logIn = require("../cognito/login");
 
 const typeDefs = buildSchema(`
   type User {
@@ -28,8 +29,24 @@ const typeDefs = buildSchema(`
 
 const mutations = {
   login: async (req, resp) => {
-    // do some token magic
-    return { token: "you're logged in" };
+    try {
+      const { email, password } = req;
+      const res = await logIn(email, password);
+      
+      console.log("cognito response --->", res);
+
+      if (res) {
+        const loggedInUser = User.findOne({
+          email,
+        });
+
+        return loggedInUser;
+      }
+
+      throw new Error("No User Found");
+    } catch (error) {
+      throw error;
+    }
   },
   signup: async (req, resp) => {
     try {
