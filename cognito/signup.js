@@ -15,8 +15,6 @@ const signUp = async (userName, password) => {
         Value: userName,
       },
     ];
-    // console.log(password);
-    console.log(userName);
 
     const params = {
       ClientId: process.env.COGNITO_CLIENT_ID,
