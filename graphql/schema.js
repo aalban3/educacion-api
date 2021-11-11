@@ -5,7 +5,8 @@ const {
 const signUp = require("../cognito/signup");
 const verify = require("../cognito/verify");
 const logIn = require("../cognito/login");
-
+const deliveryClient = require("../kontent");
+const { articulo } = require("./articulo");
 const typeDefs = buildSchema(`
   type User {
     _id: ID!
@@ -17,8 +18,10 @@ const typeDefs = buildSchema(`
   type Auth {
     token: String!
   }
+  ${articulo}
   type Query {
     users: [User]
+    kontent(type: String): Articulo
   }
   type Mutation {
     login(email: String, password: String): User
@@ -32,7 +35,7 @@ const mutations = {
     try {
       const { email, password } = req;
       const res = await logIn(email, password);
-      
+
       console.log("cognito response --->", res);
 
       if (res) {
@@ -87,6 +90,12 @@ const mutations = {
 const queries = {
   users: () => {
     return User.find({});
+  },
+  kontent: async (req, res) => {
+    // returns kontent data
+    const { type } = req;
+    const response = await deliveryClient.items().type(type).toPromise();
+    return response.items[0];
   },
 };
 
