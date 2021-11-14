@@ -21,7 +21,7 @@ const typeDefs = buildSchema(`
   ${articulo}
   type Query {
     users: [User]
-    kontent(type: String): Articulo
+    kontent(type: String, subtype: String): Articulo
   }
   type Mutation {
     login(email: String, password: String): User
@@ -92,10 +92,11 @@ const queries = {
     return User.find({});
   },
   kontent: async (req, res) => {
-    // returns kontent data
-    const { type } = req;
-    const response = await deliveryClient.items().type(type).toPromise();
-    return response.items[0];
+    // returns kontent data by type and subcategory
+    const { type, subtype } = req;
+    const { items } = await deliveryClient.items().type(type).toPromise();
+    const article = items.find((a) => a.system.name === subtype);
+    return article;
   },
 };
 
