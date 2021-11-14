@@ -22,6 +22,7 @@ const typeDefs = buildSchema(`
   type Query {
     users: [User]
     kontent(type: String, subtype: String): Articulo
+    allKontent(type: String): [Articulo]
   }
   type Mutation {
     login(email: String, password: String): User
@@ -35,8 +36,6 @@ const mutations = {
     try {
       const { email, password } = req;
       const res = await logIn(email, password);
-
-      console.log("cognito response --->", res);
 
       if (res) {
         const loggedInUser = User.findOne({
@@ -96,7 +95,12 @@ const queries = {
     const { type, subtype } = req;
     const { items } = await deliveryClient.items().type(type).toPromise();
     const article = items.find((a) => a.system.name === subtype);
-    return article;
+    return { ...article, category: article.system.name };
+  },
+  allKontent: async (req, res) => {
+    const { type } = req;
+    const { items } = await deliveryClient.items().type(type).toPromise();
+    return items.map((a) => ({ ...a, category: a.system.name }));
   },
 };
 

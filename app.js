@@ -3,9 +3,11 @@ const app = express();
 const path = require("path");
 const { graphqlHTTP } = require("express-graphql");
 require("dotenv").config();
+var cors = require("cors");
 const logger = require("morgan");
 const { types, resolvers } = require("./graphql/schema");
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded());
