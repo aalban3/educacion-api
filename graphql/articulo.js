@@ -19,6 +19,7 @@ type Content {
   value: String!
 }
 type Articulo {
+  category: String
   articulo_imagen: ContentImage
   articulo_titular: Content
   articulo_cuerpo: Content
